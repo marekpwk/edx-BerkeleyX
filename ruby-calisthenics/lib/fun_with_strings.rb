@@ -12,33 +12,26 @@ module FunWithStrings
     count
   end
 
-  def count_letters
-    count = {}
-    word_to_array = self.lstrip.downcase.split("")
-    word_to_array.each {|word| count.include?(word) ? count[word] += 1 : count[word] = 1}
-    count
-  end
 
   def is_anagram?(word)
-    if self.length == word.length
-     return self.count_letters == word.count_letters
-    end
-    return false
+   return self.split("").sort == word.split("").sort if self.length == word.length
+   return false
   end
 
   def anagram_groups
     groups = []
     string_to_array = self.split(" ")
-    puts string_to_array.inspect
-    string_to_array.each do |word|
-      groups << string_to_array.take_while{|w| w.is_anagram?(word)}
-    end
-    puts groups.inspect
+      string_to_array.each do |target|
+          sub_group = string_to_array.find_all  do
+            |word| target.is_anagram?(word)
+          end
+          puts "temp: #{sub_group.inspect}"
+             groups << sub_group if !sub_group.empty? && !groups.include?(sub_group)
+       end
+    groups
   end
 
 end
-
-# make all the above functions available as instance methods on Strings:
 
 class String
   include FunWithStrings
