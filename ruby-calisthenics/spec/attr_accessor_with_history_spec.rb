@@ -1,4 +1,4 @@
-require 'attr_accessor_with_history'
+require_relative '../lib/attr_accessor_with_history'
 require 'debugger'
 
 class TestClass1
@@ -8,7 +8,7 @@ class TestClass2
   attr_accessor_with_history 'foo'
 end
 
-describe '#attr_accessor_with_history', :pending => true do
+describe '#attr_accessor_with_history' do
   shared_examples 'all cases' do
     it 'should define getter and setter [5 points]' do
       @subject.foo = 'xyz'
