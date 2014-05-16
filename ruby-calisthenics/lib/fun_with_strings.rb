@@ -21,12 +21,13 @@ module FunWithStrings
   def anagram_groups
     groups = []
     string_to_array = self.split(" ")
-      string_to_array.each do |target|
+      while string_to_array.length > 0
+          first_word = string_to_array[0]
           sub_group = string_to_array.find_all  do
-            |word| target.is_anagram?(word)
+            |word2| first_word.is_anagram?(word2)
           end
-          puts "temp: #{sub_group.inspect}"
-             groups << sub_group if !sub_group.empty? && !groups.include?(sub_group)
+            groups << sub_group if !sub_group.empty?
+            string_to_array.delete_if {|item| sub_group.include?(item)}
        end
     groups
   end
