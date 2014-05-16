@@ -1,7 +1,6 @@
 module FunWithStrings
   def palindrome?
     word = self.downcase.split("").delete_if{|letter| !letter.match(/[a-zA-Z]/)}.join
-    # return false if !word.match(/|[a-zA-Z]/)
     word == word.reverse ? true : false
   end
 
@@ -23,11 +22,9 @@ module FunWithStrings
     string_to_array = self.split(" ")
       while string_to_array.length > 0
           first_word = string_to_array[0]
-          sub_group = string_to_array.find_all  do
-            |word2| first_word.is_anagram?(word2)
-          end
-            groups << sub_group if !sub_group.empty?
-            string_to_array.delete_if {|item| sub_group.include?(item)}
+          sub_group = string_to_array.find_all { |word2| first_word.is_anagram?(word2) }
+          groups << sub_group if !sub_group.empty?
+          string_to_array.delete_if {|item| sub_group.include?(item)}
        end
     groups
   end
