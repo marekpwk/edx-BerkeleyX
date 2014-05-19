@@ -1,7 +1,7 @@
-require 'rock_paper_scissors'
+require_relative '../lib/rock_paper_scissors'
 require 'debugger'
 
-describe RockPaperScissors, :pending => true do
+describe RockPaperScissors do
   before(:each) do
     @rock = ['Armando','R'] ; @paper = ['Dave','P'] ; @scissors = ['Sam','S']
   end
@@ -31,7 +31,7 @@ describe RockPaperScissors, :pending => true do
     it 'recursive case [30 points]' do
       tourney = [
         [
-          [ ["Armando", "P"], ["Dave", "S"] ],      
+          [ ["Armando", "P"], ["Dave", "S"] ],
           [ ["Richard", "R"], ["Michael", "S"] ]
         ],
         [
