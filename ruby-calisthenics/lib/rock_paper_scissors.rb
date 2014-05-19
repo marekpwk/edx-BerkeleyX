@@ -30,15 +30,15 @@ class RockPaperScissors
   end
 
   def self.tournament_winner(tournament)
-    if tournament[0].is_a?(String)
-      puts "first if"
+    if tournament[0][0].is_a?(String)
+      puts "Tournament winner first if"
       puts "First array #{tournament[0]} ,second array #{tournament[1]}"
       puts
       return self.winner(tournament[0], tournament[1])
     else
-      puts "second if"
+      puts "Tournament winner second if"
       puts "First array #{tournament[0]} ,second array #{tournament[1]}"
-       self.winner( self.tournament_winner(tournament[0]), self.tournament_winner(tournament[1]) )
+      self.winner( self.tournament_winner(tournament[0]), self.tournament_winner(tournament[1]) )
     end
 
   end
