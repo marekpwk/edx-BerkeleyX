@@ -1,7 +1,7 @@
 module FunWithStrings
   def palindrome?
     word = self.downcase.split("").delete_if{|letter| !letter.match(/[a-zA-Z]/)}.join
-    word == word.reverse ? true : false
+    word == word.reverse
   end
 
   def count_words
@@ -14,7 +14,6 @@ module FunWithStrings
 
   def is_anagram?(word)
    return self.split("").sort == word.split("").sort if self.length == word.length
-   return false
   end
 
   def anagram_groups
