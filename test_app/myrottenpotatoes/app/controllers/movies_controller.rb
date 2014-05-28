@@ -1,14 +1,20 @@
 class MoviesController < ApplicationController
 
   def index
-    @movies = Movie.all
+    @movies = Movie.find(:all, :order => "title")
+
   end
 
   def show
     # debugger
     # raise params.inspect
     id = params[:id]
-    @movie = Movie.find(id)
+    begin
+      @movie = Movie.find(id)
+    rescue
+      flash[:notice] = "The movie with index #{id} doesn't exist"
+      redirect_to movies_path
+    end
   end
 
   def new
@@ -18,7 +24,7 @@ class MoviesController < ApplicationController
   def create
     @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
-    redirect_to movies_path
+    redirect_to movie_path(@movie)
   end
 
   def edit

@@ -75,3 +75,11 @@ form label {
   font-weight: bold;
   color: maroon;
 }
+#main_title {
+  font-size: 4em;
+  text-align: center;
+}
+
+#movies tr:hover{
+  background-color: yellow;
+}

@@ -11,4 +11,8 @@
   = label :movie, :release_date, 'Released On'
   = date_select :movie, :release_date
 
+  = label :movie, :description, 'Description'
+  = text_field :movie, 'description'
+
+  = link_to "Cancel", movie_path(@movie)
   = submit_tag 'Save Changes'
