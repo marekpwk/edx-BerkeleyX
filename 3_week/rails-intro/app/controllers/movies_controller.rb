@@ -16,14 +16,13 @@ class MoviesController < ApplicationController
       @first_if = "first if"
     #   # @movies = Movie.where(rating: @rating_list.keys)
        # @movies = Movie.where(rating: "PG").find(:all, :order => params[:id])
-       @movies = Movie.where(rating: params[:ratings].keys).find(:all, :order => session[:sort])#.sort_by{|movie| movie.send(params[:id])}
+       @movies = Movie.where(rating: params[:ratings].keys).find(:all, :order => params[:sort_order])#.sort_by{|movie| movie.send(params[:id])}
        return @movies
-       # where(rating: params[:ratings]).find(:all, :order => params[:id])
     else
       @rating_list = @all_ratings
     end
-    if params[:id]#.find(:all, :order => params[:id])
-      # @movies = Movie.find(:all, :order => params[:id])     #   where(rating: params[:ratings]).find(:all, :order => params[:id])
+    if params[:id]
+      # session[:sort] = params[:id]
       @movies = @movies.sort_by{|movie| movie.send(params[:id])}
     end
 

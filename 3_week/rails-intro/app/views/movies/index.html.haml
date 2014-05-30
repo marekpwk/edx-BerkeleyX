@@ -2,11 +2,12 @@
 
 = form_tag movies_path, :method => :get, :id => "ratings_form" do
   Include:
+  =hidden_field_tag 'sort_order', params[:id]
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]","1",params[:ratings] == nil ? true : params[:ratings].keys.include?(rating)
   = submit_tag 'Refresh', :id => "ratings_submit"
-  = debug(params[:commit])
+  = debug(params.inspect)
 %table#movies
   %thead
     %tr
@@ -21,5 +22,5 @@
         %td= movie.rating
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
-- session[:sort] = params[:id]
+
 = link_to 'Add new movie', new_movie_path
