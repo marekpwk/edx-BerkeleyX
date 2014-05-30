@@ -1,12 +1,16 @@
 %h1 All Movies
 
-= form_tag movies_path, :method => :get, :id => "ratings_form" do
+= form_tag movies_path, :method => :get do
+  - hidden_field_tag "test[sort]", "oooooooo"
   Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]","1",params[:ratings] == nil ? true : params[:ratings].keys.include?(rating)
-
-  = submit_tag 'Refresh', :id => "ratings_submit"
+  = debug(params.inspect)
+  = debug(params[:test])
+  = debug(session[:sort])
+  = debug(@first_if)
+  = submit_tag 'Refresh',:name => "jlllljl"
 
 %table#movies
   %thead
