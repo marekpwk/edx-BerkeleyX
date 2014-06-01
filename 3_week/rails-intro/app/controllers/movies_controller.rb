@@ -7,26 +7,22 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.find(:all, :order => params[:id])
-    # @movies = Movie.where(rating: "PG").find(:all, :order => params[:id])
+    session[:sort] = params[:sort] if params[:sort].present?
+    session[:ratings] = params[:ratings] if params[:ratings].present?
     @all_ratings = Movie.ratings
-    @rating_list = params[:ratings]
-    # @movies = Movie.find(:all)
-    if @rating_list
-      @first_if = "first if"
-    #   # @movies = Movie.where(rating: @rating_list.keys)
-       # @movies = Movie.where(rating: "PG").find(:all, :order => params[:id])
-       @movies = Movie.where(rating: params[:ratings].keys).find(:all, :order => params[:sort_order])#.sort_by{|movie| movie.send(params[:id])}
-       return @movies
+    if (!params[:sort].present? && session[:sort].present?) || (!params[:ratings].present? && session[:ratings].present?)
+      session[:redirect] = "redirected"
+      flash.keep
+      redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
     else
-      @rating_list = @all_ratings
+      session[:redirect] = ""
     end
-    if params[:id]
-      # session[:sort] = params[:id]
-      @movies = @movies.sort_by{|movie| movie.send(params[:id])}
-    end
-
+    params[:ratings] = Hash[ @all_ratings.zip( [].fill("1", 0, @all_ratings.size) ) ] if !params[:ratings].present?
+    @movies = Movie.where(rating: params[:ratings].keys)
+    @movies = @movies.sort_by{ |movie| movie.send(params[:sort]) } if params[:sort].present?
+    # session.clear
   end
+
 
   def new
     # default: render 'new' template
