@@ -11,16 +11,12 @@ class MoviesController < ApplicationController
     session[:ratings] = params[:ratings] if params[:ratings].present?
     @all_ratings = Movie.ratings
     if (!params[:sort].present? && session[:sort].present?) || (!params[:ratings].present? && session[:ratings].present?)
-      session[:redirect] = "redirected"
       flash.keep
       redirect_to movies_path(:sort => session[:sort], :ratings => session[:ratings])
-    else
-      session[:redirect] = ""
     end
     params[:ratings] = Hash[ @all_ratings.zip( [].fill("1", 0, @all_ratings.size) ) ] if !params[:ratings].present?
     @movies = Movie.where(rating: params[:ratings].keys)
     @movies = @movies.sort_by{ |movie| movie.send(params[:sort]) } if params[:sort].present?
-    # session.clear
   end
 
 

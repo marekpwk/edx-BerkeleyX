@@ -7,10 +7,6 @@
     = rating
     = check_box_tag "ratings[#{rating}]","1",params[:ratings] == nil ? true : params[:ratings].keys.include?(rating)
   = submit_tag 'Refresh', :id => "ratings_submit"
-= debug(params.inspect)
-= debug(session.inspect)
-= debug(session[:redirect])
-
 
 %table#movies
   %thead
